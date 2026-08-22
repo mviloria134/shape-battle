@@ -36,7 +36,13 @@ button {
 
 .mon-info {
     margin: 25px;
-    width: 33%;
+    padding: 12px;
+    width: 40%;
+    background-color: rgb(227, 224, 224);
+}
+
+.mon-info .name {
+    margin: 0;
 }
 
 .options {
@@ -52,7 +58,7 @@ button {
 
     gap: 12px;
     
-    height: 33%;
+    height: 25%;
     width: 50%;
 }
 
