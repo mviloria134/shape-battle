@@ -8,11 +8,22 @@ const ctx = canvas.getContext('2d');
 const battleBackground = new Image();
 battleBackground.src = 'img\\battleBackground.png';
 
+class Mon {
+    constructor(name, hp, moves) {
+        this.name = name;
+        this.maxHP = hp;
+        this.currentHP = this.maxHP;
+        this.moves = moves;
+    }
+}
+
 const enemyImg = new Image();
 enemyImg.src = 'img\\enemy-sprite.png';
+const enemy = new Mon("Red Guy", 50, ['Scratch', 'Growl']);
 
 const playerImg = new Image();
 playerImg.src = 'img\\item-sprite.png';
+const player = new Mon("Green Tri", 100, ['Scratch', 'Tail Whip', 'Spark', 'Tackle']);
 
 battleBackground.onload = () => {
     ctx.drawImage(battleBackground, 0, 0, canvas.width, canvas.height);
@@ -24,7 +35,7 @@ const options = document.querySelector('.options');
 const optionButtons = options.querySelectorAll('button');
 
 const menuOptions = ['Fight', 'Mon', 'Bag', 'Run'];
-const fightOptions = ['Scratch', 'Tail Whip', 'Spark', 'Tackle'];
+const fightOptions = player.moves;
 
 optionButtons.forEach(element => {
     element.addEventListener("click", () => handleOption(element.textContent))
@@ -41,7 +52,6 @@ function handleOption(buttonText) {
     switch (buttonText) {
         case "Fight":
             displayFightOptions();
-            
             break;
     
         default:
