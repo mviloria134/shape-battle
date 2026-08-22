@@ -3,6 +3,10 @@ body {
     box-sizing: border-box;
 }
 
+button {
+    cursor: pointer;
+}
+
 .app-container {
     margin: 25px;
     position: relative;
@@ -46,14 +50,14 @@ body {
     align-content: space-between;
     justify-content: space-around;
 
-    gap: 5px;
+    gap: 12px;
     
     height: 33%;
     width: 50%;
 }
 
 .options button{
-    font-size: 44px;
+    font-size: 24px;
     padding: 10px 14px;
     width: 100%;
     text-align: left;

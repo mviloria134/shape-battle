@@ -19,3 +19,32 @@ battleBackground.onload = () => {
     ctx.drawImage(enemyImg, canvas.width * (3/4), canvas.height / 8, 100, 100);
     ctx.drawImage(playerImg, canvas.width/5, canvas.height/2, 150, 150);
 };
+
+const options = document.querySelector('.options');
+const optionButtons = options.querySelectorAll('button');
+
+const menuOptions = ['Fight', 'Mon', 'Bag', 'Run'];
+const fightOptions = ['Scratch', 'Tail Whip', 'Spark', 'Tackle'];
+
+optionButtons.forEach(element => {
+    element.addEventListener("click", () => handleOption(element.textContent))
+});
+
+
+function displayFightOptions() {
+    for (let index = 0; index < optionButtons.length; index++) {
+        optionButtons[index].textContent = fightOptions[index];
+    }
+}
+
+function handleOption(buttonText) {
+    switch (buttonText) {
+        case "Fight":
+            displayFightOptions();
+            
+            break;
+    
+        default:
+            break;
+    }
+}
