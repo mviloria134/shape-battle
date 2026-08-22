@@ -32,7 +32,7 @@ const playerHP = document.querySelector(".player .hp");
 battleBackground.onload = () => {
     ctx.drawImage(battleBackground, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(enemyImg, canvas.width * (3/4), canvas.height / 8, 100, 100);
-    ctx.drawImage(playerImg, canvas.width/5, canvas.height/2, 150, 150);
+    ctx.drawImage(playerImg, canvas.width/5, canvas.height*(2/5), 150, 150);
 };
 
 const options = document.querySelector('.options');
@@ -55,10 +55,22 @@ function updatePlayerInfo() {
     playerHP.textContent = player.currentHP + "/" + player.maxHP;
 }
 
+function updateBattleInterface() {
+    updateEnemyInfo();
+    updatePlayerInfo();
+}
+
 function displayFightOptions() {
     for (let index = 0; index < optionButtons.length; index++) {
         optionButtons[index].textContent = fightOptions[index];
     }
+}
+
+function scratch(attacker, defender) {
+    let basePower = 10;
+    defender.currentHP -= basePower;
+
+    updateBattleInterface();
 }
 
 function handleOption(buttonText) {
@@ -66,11 +78,13 @@ function handleOption(buttonText) {
         case "Fight":
             displayFightOptions();
             break;
+
+        case "Scratch":
+            scratch(player, enemy);
     
         default:
             break;
     }
 }
 
-updateEnemyInfo();
-updatePlayerInfo();
+updateBattleInterface();
