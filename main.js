@@ -20,10 +20,14 @@ class Mon {
 const enemyImg = new Image();
 enemyImg.src = 'img\\enemy-sprite.png';
 const enemy = new Mon("Red Guy", 50, ['Scratch', 'Growl']);
+const enemyName = document.querySelector(".enemy .name");
+const enemyHP = document.querySelector(".enemy .hp")
 
 const playerImg = new Image();
 playerImg.src = 'img\\item-sprite.png';
 const player = new Mon("Green Tri", 100, ['Scratch', 'Tail Whip', 'Spark', 'Tackle']);
+const playerName = document.querySelector(".player .name");
+const playerHP = document.querySelector(".player .hp");
 
 battleBackground.onload = () => {
     ctx.drawImage(battleBackground, 0, 0, canvas.width, canvas.height);
@@ -41,6 +45,15 @@ optionButtons.forEach(element => {
     element.addEventListener("click", () => handleOption(element.textContent))
 });
 
+function updateEnemyInfo() {
+    enemyName.textContent = enemy.name;
+    enemyHP.textContent = enemy.currentHP + "/" + enemy.maxHP;
+}
+
+function updatePlayerInfo() {
+    playerName.textContent = player.name;
+    playerHP.textContent = player.currentHP + "/" + player.maxHP;
+}
 
 function displayFightOptions() {
     for (let index = 0; index < optionButtons.length; index++) {
@@ -58,3 +71,6 @@ function handleOption(buttonText) {
             break;
     }
 }
+
+updateEnemyInfo();
+updatePlayerInfo();
