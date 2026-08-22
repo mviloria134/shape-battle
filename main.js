@@ -55,36 +55,36 @@ function updatePlayerInfo() {
     playerHP.textContent = player.currentHP + "/" + player.maxHP;
 }
 
-function updateBattleInterface() {
+function updateMonInfo() {
     updateEnemyInfo();
     updatePlayerInfo();
 }
 
-function displayFightOptions() {
+function displayOptions(optionArray) {
     for (let index = 0; index < optionButtons.length; index++) {
-        optionButtons[index].textContent = fightOptions[index];
+        optionButtons[index].textContent = optionArray[index];
     }
 }
 
 function scratch(attacker, defender) {
     let basePower = 10;
     defender.currentHP -= basePower;
-
-    updateBattleInterface();
 }
 
 function handleOption(buttonText) {
     switch (buttonText) {
         case "Fight":
-            displayFightOptions();
+            displayOptions(player.moves);
             break;
 
         case "Scratch":
             scratch(player, enemy);
+            updateMonInfo();
+            displayOptions(menuOptions);
     
         default:
             break;
     }
 }
 
-updateBattleInterface();
+updateMonInfo();
