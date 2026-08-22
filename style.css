@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.app-container {
+    margin: 25px;
+    position: relative;
+}
+
+#app {
+    background-color: black;
+}
+
+.battle-interface {
+    width: 700px;
+    height: 500px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.enemy {
+    align-self: flex-start;
+}
+
+.mon-info {
+    margin: 25px;
+    width: 33%;
+}
+
+.options {
+    background-color: black;
+    margin: 0;
+    padding: 12px 24px;
+    list-style-type: none;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-content: space-between;
+    justify-content: space-around;
+
+    gap: 5px;
+    
+    height: 33%;
+    width: 50%;
+}
+
+.options button{
+    font-size: 44px;
+    padding: 10px 14px;
+    width: 100%;
+    text-align: left;
+}
+
+.options li {
+    width: 45%;
+}
