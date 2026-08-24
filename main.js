@@ -18,8 +18,8 @@ let player = new Mon(TRIANGREEN);
 const playerName = document.querySelector(".player .name");
 const playerHP = document.querySelector(".player .hp");
 
-const options = document.querySelector('.options');
-const optionButtons = options.querySelectorAll('button');
+const menu = document.querySelector('.menu');
+const optionButtons = menu.querySelectorAll('button');
 
 const menuOptions = ['Fight', 'Mon', 'Bag', 'Run'];
 const fightOptions = player.moves;
