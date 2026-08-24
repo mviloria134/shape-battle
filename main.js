@@ -51,6 +51,7 @@ function displayOptions(optionArray) {
     }
 }
 
+// TODO: rework skills and attack logic. Maybe have a Skill class
 function scratch(attacker, defender) {
     let basePower = 10;
     defender.currentHP -= basePower;
@@ -58,10 +59,10 @@ function scratch(attacker, defender) {
     return attacker.name + " used Scratch on " + defender.name;
 }
 
-function displayAttackResult(result) {
+function displayStatusText(text) {
     updateMonInfo();
     menu.removeChild(optionsUL);
-    statusText.textContent = result
+    statusText.textContent = text
     let displayMiliseconds = 800;
     setTimeout(() => {
         menu.appendChild(optionsUL);
@@ -77,10 +78,10 @@ function handleOption(buttonText) {
             break;
 
         case "Scratch":
-            displayAttackResult(scratch(player, enemyMon));
+            displayStatusText(scratch(player, enemyMon));
     
         default:
-            break;
+            displayStatusText("Haven't implemented that yet. Sorry!");
     }
 }
 
