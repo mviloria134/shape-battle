@@ -24,7 +24,7 @@ const optionsUL = document.querySelector('.options');
 const optionButtons = optionsUL.querySelectorAll('button');
 
 const menuOptions = ['Fight', 'Mon', 'Bag', 'Run'];
-const fightOptions = player.moves;
+const fightOptions = player.skills;
 
 optionButtons.forEach(element => {
     element.addEventListener("click", () => handleOption(element.textContent))
@@ -74,7 +74,7 @@ function displayStatusText(text) {
 function handleOption(buttonText) {
     switch (buttonText) {
         case "Fight":
-            displayOptions(player.moves);
+            displayOptions(player.skills);
             break;
 
         case "Scratch":
