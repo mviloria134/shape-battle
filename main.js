@@ -9,31 +9,37 @@ const battleBackground = new Image();
 battleBackground.src = 'img\\battleBackground.png';
 
 class Mon {
-    constructor(name, hp, moves) {
+    constructor({name, maxHP, moves, imgPath}) {
         this.name = name;
-        this.maxHP = hp;
+        this.maxHP = maxHP;
         this.currentHP = this.maxHP;
         this.moves = moves;
+        this.image = new Image();
+        this.image.src = imgPath;
     }
 }
 
-const enemyImg = new Image();
-enemyImg.src = 'img\\enemy-sprite.png';
-const enemy = new Mon("Red Guy", 50, ['Scratch', 'Growl']);
+const REDEYE = {
+    name: "Redeye",
+    maxHP: 50,
+    moves: ['Scratch', 'Growl'],
+    imgPath: 'img\\enemy-sprite.png'
+};
+
+const TRIANGREEN = {
+    name: "Triangreen",
+    maxHP: 100,
+    moves: ['Scratch', 'Tail Whip', 'Spark', 'Tackle'],
+    imgPath: 'img\\item-sprite.png'
+};
+
+let enemyMon = new Mon(REDEYE);
 const enemyName = document.querySelector(".enemy .name");
 const enemyHP = document.querySelector(".enemy .hp")
 
-const playerImg = new Image();
-playerImg.src = 'img\\item-sprite.png';
-const player = new Mon("Green Tri", 100, ['Scratch', 'Tail Whip', 'Spark', 'Tackle']);
+let player = new Mon(TRIANGREEN);
 const playerName = document.querySelector(".player .name");
 const playerHP = document.querySelector(".player .hp");
-
-battleBackground.onload = () => {
-    ctx.drawImage(battleBackground, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(enemyImg, canvas.width * (3/4), canvas.height / 8, 100, 100);
-    ctx.drawImage(playerImg, canvas.width/5, canvas.height*(2/5), 150, 150);
-};
 
 const options = document.querySelector('.options');
 const optionButtons = options.querySelectorAll('button');
@@ -46,8 +52,8 @@ optionButtons.forEach(element => {
 });
 
 function updateEnemyInfo() {
-    enemyName.textContent = enemy.name;
-    enemyHP.textContent = enemy.currentHP + "/" + enemy.maxHP;
+    enemyName.textContent = enemyMon.name;
+    enemyHP.textContent = enemyMon.currentHP + "/" + enemyMon.maxHP;
 }
 
 function updatePlayerInfo() {
@@ -78,7 +84,7 @@ function handleOption(buttonText) {
             break;
 
         case "Scratch":
-            scratch(player, enemy);
+            scratch(player, enemyMon);
             updateMonInfo();
             displayOptions(menuOptions);
     
@@ -87,4 +93,13 @@ function handleOption(buttonText) {
     }
 }
 
+function drawBattleScene() {
+    ctx.drawImage(battleBackground, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(enemyMon.image, canvas.width * (3/4), canvas.height / 8, 100, 100);
+    ctx.drawImage(player.image, canvas.width/5, canvas.height*(2/5), 150, 150);
+}
+
+battleBackground.onload = () => {
+    drawBattleScene();
+};
 updateMonInfo();
