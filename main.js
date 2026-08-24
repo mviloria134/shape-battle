@@ -1,3 +1,5 @@
+import { Mon, REDEYE, TRIANGREEN } from "./Mon.js";
+
 const canvas = document.querySelector("#app");
 
 canvas.width = 700;
@@ -7,31 +9,6 @@ const ctx = canvas.getContext('2d');
 
 const battleBackground = new Image();
 battleBackground.src = 'img\\battleBackground.png';
-
-class Mon {
-    constructor({name, maxHP, moves, imgPath}) {
-        this.name = name;
-        this.maxHP = maxHP;
-        this.currentHP = this.maxHP;
-        this.moves = moves;
-        this.image = new Image();
-        this.image.src = imgPath;
-    }
-}
-
-const REDEYE = {
-    name: "Redeye",
-    maxHP: 50,
-    moves: ['Scratch', 'Growl'],
-    imgPath: 'img\\enemy-sprite.png'
-};
-
-const TRIANGREEN = {
-    name: "Triangreen",
-    maxHP: 100,
-    moves: ['Scratch', 'Tail Whip', 'Spark', 'Tackle'],
-    imgPath: 'img\\item-sprite.png'
-};
 
 let enemyMon = new Mon(REDEYE);
 const enemyName = document.querySelector(".enemy .name");
