@@ -19,7 +19,9 @@ const playerName = document.querySelector(".player .name");
 const playerHP = document.querySelector(".player .hp");
 
 const menu = document.querySelector('.menu');
-const optionButtons = menu.querySelectorAll('button');
+const statusText = document.querySelector('.status p');
+const optionsUL = document.querySelector('.options');
+const optionButtons = optionsUL.querySelectorAll('button');
 
 const menuOptions = ['Fight', 'Mon', 'Bag', 'Run'];
 const fightOptions = player.moves;
@@ -52,6 +54,20 @@ function displayOptions(optionArray) {
 function scratch(attacker, defender) {
     let basePower = 10;
     defender.currentHP -= basePower;
+
+    return attacker.name + " used Scratch on " + defender.name;
+}
+
+function displayAttackResult(result) {
+    updateMonInfo();
+    menu.removeChild(optionsUL);
+    statusText.textContent = result
+    let displayMiliseconds = 800;
+    setTimeout(() => {
+        menu.appendChild(optionsUL);
+        statusText.textContent = "What will you do?";
+        displayOptions(menuOptions);
+    }, displayMiliseconds);
 }
 
 function handleOption(buttonText) {
@@ -61,9 +77,7 @@ function handleOption(buttonText) {
             break;
 
         case "Scratch":
-            scratch(player, enemyMon);
-            updateMonInfo();
-            displayOptions(menuOptions);
+            displayAttackResult(scratch(player, enemyMon));
     
         default:
             break;
