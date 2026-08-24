@@ -58,7 +58,7 @@ button {
     background-color: aliceblue;
 }
 
-.menu ul {
+.options {
     background-color: black;
     margin: 0;
     padding: 0 24px;
@@ -75,13 +75,13 @@ button {
     flex: 1
 }
 
-.menu button{
+.options button {
     font-size: 24px;
     padding: 10px 14px;
     width: 100%;
     text-align: left;
 }
 
-.menu li {
+.options li {
     width: 45%;
 }
