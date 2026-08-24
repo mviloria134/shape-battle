@@ -1,5 +1,5 @@
 export class Mon {
-    constructor({name, maxHP, moves: skills, imgPath}) {
+    constructor({name, maxHP, skills, imgPath}) {
         this.name = name;
         this.maxHP = maxHP;
         this.currentHP = this.maxHP;
@@ -9,16 +9,17 @@ export class Mon {
     }
 }
 
-export const REDEYE = {
-    name: "Redeye",
-    maxHP: 50,
-    skills: ['Scratch', 'Growl'],
-    imgPath: 'img\\enemy-sprite.png'
-};
-
-export const TRIANGREEN = {
-    name: "Triangreen",
-    maxHP: 100,
-    skills: ['Scratch', 'Tail Whip', 'Spark', 'Tackle'],
-    imgPath: 'img\\item-sprite.png'
+export const MONS_LIST = {
+    REDEYE: {
+        name: "Redeye",
+        maxHP: 50,
+        skills: ['Scratch', 'Growl'],
+        imgPath: 'img\\enemy-sprite.png'
+    },
+    TRIANGREEN: {
+        name: "Triangreen",
+        maxHP: 100,
+        skills: ['Scratch', 'Tail Whip', 'Spark', 'Tackle'],
+        imgPath: 'img\\item-sprite.png'
+    }
 };

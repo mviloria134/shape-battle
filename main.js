@@ -1,4 +1,4 @@
-import { Mon, REDEYE, TRIANGREEN } from "./Mon.js";
+import { Mon, MONS_LIST } from "./Mon.js";
 
 const canvas = document.querySelector("#app");
 
@@ -10,11 +10,11 @@ const ctx = canvas.getContext('2d');
 const battleBackground = new Image();
 battleBackground.src = 'img\\battleBackground.png';
 
-let enemyMon = new Mon(REDEYE);
+let enemyMon = new Mon(MONS_LIST.REDEYE);
 const enemyName = document.querySelector(".enemy .name");
 const enemyHP = document.querySelector(".enemy .hp")
 
-let player = new Mon(TRIANGREEN);
+let player = new Mon(MONS_LIST.TRIANGREEN);
 const playerName = document.querySelector(".player .name");
 const playerHP = document.querySelector(".player .hp");
 
