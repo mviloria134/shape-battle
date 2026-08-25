@@ -19,9 +19,6 @@ button {
 }
 
 .battle-interface {
-    width: 700px;
-    height: 500px;
-
     position: absolute;
     top: 0;
     left: 0;
