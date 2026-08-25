@@ -1,3 +1,5 @@
+// TODO: implement status effects
+
 export class Skill {
     constructor({name, basePower, chanceToHit}) {
         this.name = name;
