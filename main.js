@@ -11,6 +11,10 @@ const ctx = canvas.getContext('2d');
 const battleBackground = new Image();
 battleBackground.src = 'img\\battleBackground.png';
 
+const battleInterface = document.querySelector(".battle-interface");
+battleInterface.style.width = canvas.width + "px";
+battleInterface.style.height = canvas.height + "px";
+
 let enemyMon = new Mon(MONS_LIST.REDEYE);
 const enemyName = document.querySelector(".enemy .name");
 const enemyHP = document.querySelector(".enemy .hp")
