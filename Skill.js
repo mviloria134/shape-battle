@@ -11,5 +11,29 @@ export const SKILL_LIST = {
         name: "Scratch",
         basePower: 10,
         chanceToHit: 90,
+    },
+
+    Spark: {
+        name: "Spark",
+        basePower: 20,
+        chanceToHit: 80
+    },
+
+    TailWhip: {
+        name: "Tail Whip",
+        basePower: 0,
+        chanceToHit: 90
+    },
+
+    Tackle: {
+        name: "Tackle",
+        basePower: 5,
+        chanceToHit: 100
+    },
+
+    Growl: {
+        name: "Growl",
+        basePower: 0,
+        chanceToHit: 90
     }
 };

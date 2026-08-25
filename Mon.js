@@ -36,7 +36,7 @@ export const MONS_LIST = {
     TRIANGREEN: {
         name: "Triangreen",
         maxHP: 100,
-        skills: ['Scratch', 'Tail Whip', 'Spark', 'Tackle'],
+        skills: ['Scratch', 'TailWhip', 'Spark', 'Tackle'],
         imgPath: 'img\\item-sprite.png'
     }
 };
