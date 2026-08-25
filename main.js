@@ -71,7 +71,11 @@ function handleOption(buttonText) {
             break;
 
         case buttonText in SKILL_LIST:
-            (player.attack(buttonText, enemyMon)) ? displayStatusText(player.name + " used " + buttonText + " on " + enemyMon.name) : displayStatusText("It missed!");
+            (player.attack(buttonText, enemyMon)) ? 
+                displayStatusText(
+                    player.name + " used " + buttonText + " on " + enemyMon.name + ", dealing " + SKILL_LIST[buttonText].basePower + " damage!"
+                ) :
+                displayStatusText("It missed!");
             break;
     
         default:
