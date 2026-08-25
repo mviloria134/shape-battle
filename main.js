@@ -1,4 +1,5 @@
 import { Mon, MONS_LIST } from "./Mon.js";
+import { SKILL_LIST } from "./Skill.js";
 
 const canvas = document.querySelector("#app");
 
@@ -51,14 +52,6 @@ function displayOptions(optionArray) {
     }
 }
 
-// TODO: rework skills and attack logic. Maybe have a Skill class
-function scratch(attacker, defender) {
-    let basePower = 10;
-    defender.currentHP -= basePower;
-
-    return attacker.name + " used Scratch on " + defender.name;
-}
-
 function displayStatusText(text) {
     updateMonInfo();
     menu.removeChild(optionsUL);
@@ -72,13 +65,14 @@ function displayStatusText(text) {
 }
 
 function handleOption(buttonText) {
-    switch (buttonText) {
-        case "Fight":
+    switch (true) {
+        case buttonText === "Fight":
             displayOptions(player.skills);
             break;
 
-        case "Scratch":
-            displayStatusText(scratch(player, enemyMon));
+        case buttonText in SKILL_LIST:
+            (player.attack(buttonText, enemyMon)) ? displayStatusText(player.name + " used " + buttonText + " on " + enemyMon.name) : displayStatusText("It missed!");
+            break;
     
         default:
             displayStatusText("Haven't implemented that yet. Sorry!");

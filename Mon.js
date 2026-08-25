@@ -1,3 +1,5 @@
+import { SKILL_LIST } from "./Skill.js";
+
 export class Mon {
     constructor({name, maxHP, skills, imgPath}) {
         this.name = name;
@@ -6,6 +8,21 @@ export class Mon {
         this.skills = skills;
         this.image = new Image();
         this.image.src = imgPath;
+    }
+
+    attack(skillName, defender) {
+        if (!(skillName in SKILL_LIST)) {
+            return -1;
+        }
+        let skill = SKILL_LIST[skillName]
+        
+        let didHit = Math.random() * 101 < skill.chanceToHit;
+
+        if (didHit) {
+            defender.currentHP -= skill.basePower;
+        }
+
+        return didHit ? 1 : 0;
     }
 }
 
