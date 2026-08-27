@@ -22,7 +22,7 @@ export const SKILL_LIST = {
     },
 
     TailWhip: {
-        name: "Tail Whip",
+        name: "TailWhip",
         basePower: 0,
         chanceToHit: 90
     },

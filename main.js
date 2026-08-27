@@ -93,17 +93,21 @@ function handleOption(buttonText) {
             break;
 
         case buttonText in SKILL_LIST:
-            const messages = [player.name + " used " + buttonText + " on " + enemyMon.name];
-            (player.attack(buttonText, enemyMon)) ? 
-                messages.push("It did " + SKILL_LIST[buttonText].basePower + " damage!") :
-                messages.push("But it missed!");
-            console.log(messages.length);
-            displayStatusMessages(messages);
+            displayAttackResult(player, enemyMon, SKILL_LIST[buttonText]);
             break;
     
         default:
             displayStatusMessages(["Haven't implemented that yet. Sorry!"]);
     }
+}
+
+function displayAttackResult(attacker, defender, skill) {
+    const messages = [attacker.name + " used " + skill.name + " on " + defender.name];
+    (attacker.attack(skill.name, enemyMon)) ? 
+        messages.push("It did " + skill.basePower + " damage!") :
+        messages.push("But it missed!");
+    console.log(messages.length);
+    displayStatusMessages(messages);
 }
 
 function drawBattleScene() {
