@@ -25,6 +25,8 @@ const playerHP = document.querySelector(".player .hp");
 
 const menu = document.querySelector('.menu');
 const statusText = document.querySelector('.status p');
+const statusDefault = statusText.textContent;
+
 const optionsUL = document.querySelector('.options');
 const optionButtons = optionsUL.querySelectorAll('button');
 
@@ -56,16 +58,23 @@ function displayOptions(optionArray) {
     }
 }
 
-function displayStatusText(text) {
+function displayStatusMessages(messages) {
     updateMonInfo();
     menu.removeChild(optionsUL);
-    statusText.textContent = text
+    
     let displayMiliseconds = 800;
+    
+    statusText.textContent = messages[0];
+    for (let i = 0; i < messages.length; i++) {
+        setTimeout(() => {
+            statusText.textContent = messages[i]
+        }, displayMiliseconds);
+    }
     setTimeout(() => {
+        statusText.textContent = statusDefault;
         menu.appendChild(optionsUL);
-        statusText.textContent = "What will you do?";
         displayOptions(menuOptions);
-    }, displayMiliseconds);
+    }, displayMiliseconds * messages.length);
 }
 
 function handleOption(buttonText) {
@@ -75,15 +84,16 @@ function handleOption(buttonText) {
             break;
 
         case buttonText in SKILL_LIST:
+            const messages = [player.name + " used " + buttonText + " on " + enemyMon.name];
             (player.attack(buttonText, enemyMon)) ? 
-                displayStatusText(
-                    player.name + " used " + buttonText + " on " + enemyMon.name + ", dealing " + SKILL_LIST[buttonText].basePower + " damage!"
-                ) :
-                displayStatusText("It missed!");
+                messages.push("It did " + SKILL_LIST[buttonText].basePower + " damage!") :
+                messages.push("But it missed!");
+            console.log(messages.length);
+            displayStatusMessages(messages);
             break;
     
         default:
-            displayStatusText("Haven't implemented that yet. Sorry!");
+            displayStatusMessages(["Haven't implemented that yet. Sorry!"]);
     }
 }
 
