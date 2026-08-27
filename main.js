@@ -31,7 +31,6 @@ const optionsUL = document.querySelector('.options');
 const optionButtons = optionsUL.querySelectorAll('button');
 
 const menuOptions = ['Fight', 'Mon', 'Bag', 'Run'];
-const fightOptions = player.skills;
 
 optionButtons.forEach(element => {
     element.addEventListener("click", () => handleOption(element.textContent))
@@ -58,22 +57,32 @@ function displayOptions(optionArray) {
     }
 }
 
+function changeStatusTo(message) {
+    statusText.textContent = message;
+}
+
+function goToMainMenu() {
+    if (!optionsUL.parentElement) {
+        menu.appendChild(optionsUL);
+    }
+    changeStatusTo(statusDefault);
+    displayOptions(menuOptions);
+}
+
 function displayStatusMessages(messages) {
     updateMonInfo();
     menu.removeChild(optionsUL);
     
     let displayMiliseconds = 800;
     
-    statusText.textContent = messages[0];
-    for (let i = 0; i < messages.length; i++) {
+    changeStatusTo(messages[0]);
+    for (let i = 1; i < messages.length; i++) {
         setTimeout(() => {
-            statusText.textContent = messages[i]
+            changeStatusTo(messages[i])
         }, displayMiliseconds);
     }
     setTimeout(() => {
-        statusText.textContent = statusDefault;
-        menu.appendChild(optionsUL);
-        displayOptions(menuOptions);
+        goToMainMenu()
     }, displayMiliseconds * messages.length);
 }
 
