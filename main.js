@@ -70,16 +70,14 @@ function goToMainMenu() {
     displayOptions(menuOptions);
 }
 
-async function displayStatusMessages(messages) {
+async function displayStatusMessages(messages, millisecondsBetweenMessages = 800) {
     updateMonInfo();
     if (optionsUL.parentElement) {
         menu.removeChild(optionsUL);
     }
     
-    let displayMilliseconds = 800;
-    
     for (let i = 0; i < messages.length; i++) {
-        await displayForMilliseconds(messages[i], displayMilliseconds);
+        await displayForMilliseconds(messages[i], millisecondsBetweenMessages);
     }
     // goToMainMenu();
     return Promise.resolve(1);
@@ -96,7 +94,7 @@ function displayForMilliseconds(message, milliseconds) {
 
 function displayAttackResult(attacker, defender, skill) {
     const messages = [attacker.name + " used " + skill.name + " on " + defender.name];
-    (attacker.attack(skill.name, enemyMon)) ? 
+    (attacker.attack(skill.name, defender)) ? 
         messages.push("It did " + skill.basePower + " damage!") :
         messages.push("But it missed!");
         

@@ -13,3 +13,7 @@ export function randIntInRange(min, nonInclusiveMax) {
 export function randomChoiceFrom(array) {
     return array[randInt(array.length)];
 }
+
+for (let i = 0; i < 10; i++) {
+    console.log(randomChoiceFrom(['apple', 'banana', 'pear']));
+}
