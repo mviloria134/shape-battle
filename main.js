@@ -92,13 +92,23 @@ function displayForMilliseconds(message, milliseconds = 800) {
     });
 }
 
-function displayAttackResult(attacker, defender, skill) {
-    const messages = [attacker.name + " used " + skill.name + " on " + defender.name];
-    (attacker.attack(skill.name, defender)) ? 
-        messages.push("It did " + skill.basePower + " damage!") :
-        messages.push("But it missed!");
-        
-    return displayStatusMessages(messages);  
+async function displayAttackResult(attacker, defender, skill) {
+    await displayForMilliseconds(attacker.name + " used " + skill.name + " on " + defender.name);
+    let didHit = attacker.attack(skill.name, defender)
+    let message = (didHit) ? 
+        "It did " + skill.basePower + " damage!" :
+        "But it missed!";
+    if (didHit) {
+        if (attacker === player) {
+            await animatePlayerAttack();
+        }
+        else {
+            await animateEnemyAttack();
+        }
+        updateMonInfo();
+    }
+    await displayForMilliseconds(message);  
+    return stopAnimation(playerAnimationFrame);
 }
 
 async function handleOption(buttonText) {
@@ -123,13 +133,78 @@ function goToEnemyTurn() {
     return displayAttackResult(enemyMon, player, SKILL_LIST[randomChoiceFrom(enemyMon.skills)]);
 }
 
+const PLAYER_DEFAULT_X = canvas.width/5;
+const PLAYER_DEFAULT_Y = canvas.height*(2/5);
+let playerx = PLAYER_DEFAULT_X;
+let playery = PLAYER_DEFAULT_Y;
+
+let playerAnimationFrame;
+
+const ENEMY_DEFAULT_X = canvas.width * (3/4);
+const ENEMY_DEFAULT_Y = canvas.height / 8;
+let enemyx = ENEMY_DEFAULT_X;
+let enemyy = ENEMY_DEFAULT_Y;
+
+let enemyAnimationFrame;
+
 function drawBattleScene() {
     ctx.drawImage(battleBackground, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(enemyMon.image, canvas.width * (3/4), canvas.height / 8, 100, 100);
-    ctx.drawImage(player.image, canvas.width/5, canvas.height*(2/5), 150, 150);
+    ctx.drawImage(enemyMon.image, enemyx, enemyy, 100, 100);
+    ctx.drawImage(player.image, playerx, playery, 150, 150);
+}
+
+
+function animatePlayerAttack() {
+    playerx += 20;
+    playery -= 10;
+    
+    drawBattleScene();
+    playerAnimationFrame = window.requestAnimationFrame(animatePlayerAttack);
+
+    return new Promise( (resolve) => {
+        setTimeout( () => {
+            stopAnimation(playerAnimationFrame)
+            resolve(1);
+        }, 250);
+    });
+}
+
+function animateEnemyAttack() {
+    enemyx -= 20;
+    enemyy += 10;
+    
+    drawBattleScene();
+    enemyAnimationFrame = window.requestAnimationFrame(animateEnemyAttack);
+
+    return new Promise( (resolve) => {
+        setTimeout( () => {
+            stopAnimation(enemyAnimationFrame)
+            resolve(1);
+        }, 250);
+    });
+}
+
+function stopAnimation(frame) {
+    window.cancelAnimationFrame(frame);
+    playerx = PLAYER_DEFAULT_X;
+    playery = PLAYER_DEFAULT_Y;
+    enemyx = ENEMY_DEFAULT_X;
+    enemyy = ENEMY_DEFAULT_Y;
+    drawBattleScene();
+
+    return Promise.resolve(1);
 }
 
 battleBackground.onload = () => {
     drawBattleScene();
 };
 updateMonInfo();
+
+window.addEventListener("keydown", (event) => {
+    if (event.key === "j") {
+        playerAnimationFrame = window.requestAnimationFrame(animatePlayerAttack);
+    }
+    else if (event.key === "k") {
+        stopAnimation(playerAnimationFrame);
+    }
+});
