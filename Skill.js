@@ -35,7 +35,7 @@ export const SKILL_LIST = {
 
     Growl: {
         name: "Growl",
-        basePower: 0,
+        basePower: 5,
         chanceToHit: 90
     }
 };

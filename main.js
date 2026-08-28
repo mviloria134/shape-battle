@@ -1,5 +1,6 @@
 import { Mon, MONS_LIST } from "./Mon.js";
 import { SKILL_LIST } from "./Skill.js";
+import { randomChoiceFrom } from "./randomUtils.js";
 
 const canvas = document.querySelector("#app");
 
@@ -69,36 +70,28 @@ function goToMainMenu() {
     displayOptions(menuOptions);
 }
 
-function displayStatusMessages(messages) {
+async function displayStatusMessages(messages) {
     updateMonInfo();
-    menu.removeChild(optionsUL);
-    
-    let displayMiliseconds = 800;
-    
-    changeStatusTo(messages[0]);
-    for (let i = 1; i < messages.length; i++) {
-        setTimeout(() => {
-            changeStatusTo(messages[i])
-        }, displayMiliseconds);
+    if (optionsUL.parentElement) {
+        menu.removeChild(optionsUL);
     }
-    setTimeout(() => {
-        goToMainMenu()
-    }, displayMiliseconds * messages.length);
+    
+    let displayMilliseconds = 800;
+    
+    for (let i = 0; i < messages.length; i++) {
+        await displayForMilliseconds(messages[i], displayMilliseconds);
+    }
+    // goToMainMenu();
+    return Promise.resolve(1);
 }
 
-function handleOption(buttonText) {
-    switch (true) {
-        case buttonText === "Fight":
-            displayOptions(player.skills);
-            break;
-
-        case buttonText in SKILL_LIST:
-            displayAttackResult(player, enemyMon, SKILL_LIST[buttonText]);
-            break;
-    
-        default:
-            displayStatusMessages(["Haven't implemented that yet. Sorry!"]);
-    }
+function displayForMilliseconds(message, milliseconds) {
+    changeStatusTo(message);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(1);
+        }, milliseconds);
+    });
 }
 
 function displayAttackResult(attacker, defender, skill) {
@@ -106,8 +99,29 @@ function displayAttackResult(attacker, defender, skill) {
     (attacker.attack(skill.name, enemyMon)) ? 
         messages.push("It did " + skill.basePower + " damage!") :
         messages.push("But it missed!");
-    console.log(messages.length);
-    displayStatusMessages(messages);
+        
+    return displayStatusMessages(messages);  
+}
+
+async function handleOption(buttonText) {
+    switch (true) {
+        case buttonText === "Fight":
+            displayOptions(player.skills);
+            break;
+
+        case buttonText in SKILL_LIST:
+            await displayAttackResult(player, enemyMon, SKILL_LIST[buttonText]);
+            await goToEnemyTurn();
+            goToMainMenu();
+            break;
+    
+        default:
+            displayStatusMessages(["Haven't implemented that yet. Sorry!"]);
+    }
+}
+
+function goToEnemyTurn() {
+    return displayAttackResult(enemyMon, player, SKILL_LIST[randomChoiceFrom(enemyMon.skills)]);
 }
 
 function drawBattleScene() {

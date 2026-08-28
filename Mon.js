@@ -1,4 +1,5 @@
 import { SKILL_LIST } from "./Skill.js";
+import { didHitWithPercentChance, randomChoiceFrom } from "./randomUtils.js";
 
 export class Mon {
     constructor({name, maxHP, skills, imgPath}) {
@@ -16,13 +17,17 @@ export class Mon {
         }
         let skill = SKILL_LIST[skillName]
         
-        let didHit = Math.random() * 101 < skill.chanceToHit;
+        let didHit = didHitWithPercentChance(skill.chanceToHit);
 
         if (didHit) {
             defender.currentHP -= skill.basePower;
         }
 
         return didHit ? 1 : 0;
+    }
+
+    randomAttack(defender) {
+        this.attack(randomChoiceFrom(this.skills), defender);
     }
 }
 
