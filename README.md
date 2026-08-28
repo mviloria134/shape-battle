@@ -1,9 +1,6 @@
-A very simple turn-based battler similar to Pokemon.  
-
-So far, the player can only attack the enemy then go back to the main menu.  
+A simple turn-based battler similar to Pokemon. Very early stage at the moment.  
 
 Core Mechanics to finish:  
-- implement the enemy's turn
 - Mons faint at 0 HP
 - win/lose the battle
 
