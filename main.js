@@ -199,12 +199,3 @@ battleBackground.onload = () => {
     drawBattleScene();
 };
 updateMonInfo();
-
-window.addEventListener("keydown", (event) => {
-    if (event.key === "j") {
-        playerAnimationFrame = window.requestAnimationFrame(animatePlayerAttack);
-    }
-    else if (event.key === "k") {
-        stopAnimation(playerAnimationFrame);
-    }
-});
