@@ -195,7 +195,7 @@ function stopAnimation(frame) {
     return Promise.resolve(1);
 }
 
-battleBackground.onload = () => {
+window.onload = () => {
     drawBattleScene();
+    updateMonInfo();
 };
-updateMonInfo();
