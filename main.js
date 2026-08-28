@@ -72,9 +72,6 @@ function goToMainMenu() {
 
 async function displayStatusMessages(messages, millisecondsBetweenMessages = 800) {
     updateMonInfo();
-    if (optionsUL.parentElement) {
-        menu.removeChild(optionsUL);
-    }
     
     for (let i = 0; i < messages.length; i++) {
         await displayForMilliseconds(messages[i], millisecondsBetweenMessages);
@@ -83,7 +80,10 @@ async function displayStatusMessages(messages, millisecondsBetweenMessages = 800
     return Promise.resolve(1);
 }
 
-function displayForMilliseconds(message, milliseconds) {
+function displayForMilliseconds(message, milliseconds = 800) {
+    if (optionsUL.parentElement) {
+        menu.removeChild(optionsUL);
+    }
     changeStatusTo(message);
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -114,7 +114,8 @@ async function handleOption(buttonText) {
             break;
     
         default:
-            displayStatusMessages(["Haven't implemented that yet. Sorry!"]);
+            await displayForMilliseconds("Haven't implemented that yet. Sorry!");
+            goToMainMenu();
     }
 }
 
